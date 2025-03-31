@@ -33,10 +33,14 @@ new class extends Component
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('muebles.index')" :active="request()->routeIs('muebles.index')" wire:navigate>
+                        {{ __('Muebles') }}
+                    </x-nav-link>
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
+            @if (Auth::check())
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -65,6 +69,11 @@ new class extends Component
                     </x-slot>
                 </x-dropdown>
             </div>
+            @else
+                <div class="hidden sm:flex sm:items-center sm:ms-6">
+                    <p>Invitado</p>
+                </div>
+            @endif
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
@@ -87,6 +96,7 @@ new class extends Component
         </div>
 
         <!-- Responsive Settings Options -->
+        @if (Auth::check())
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800" x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
@@ -106,5 +116,10 @@ new class extends Component
                 </button>
             </div>
         </div>
+        @else
+            <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <p>Invitado</p>
+            </div>
+        @endif
     </div>
 </nav>

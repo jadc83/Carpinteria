@@ -16,10 +16,12 @@ class MuebleController extends Controller
      */
     public function index()
     {
-        $fabricados = Mueble::where('muebleable_type', 'App\Models\Fabricado')->get();
-        $prefabricados = Mueble::where('muebleable_type', 'App\Models\Prefabricado')->get();
+        $muebles = Mueble::whereIn('muebleable_type', [
+            'App\Models\Fabricado',
+            'App\Models\Prefabricado'
+        ])->get();
 
-        return view('muebles.index', ['fabricados' => $fabricados, 'prefabricados' => $prefabricados]);
+        return view('muebles.index', ['muebles' => $muebles]);
     }
 
     public function indexFabricado()
