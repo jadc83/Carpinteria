@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreFabricadoRequest;
 use App\Http\Requests\StoreMuebleRequest;
+use App\Http\Requests\StorePrefabricadoRequest;
 use App\Http\Requests\UpdateMuebleRequest;
 use App\Models\Fabricado;
 use App\Models\Mueble;
@@ -51,7 +53,7 @@ class MuebleController extends Controller
         //
     }
 
-    public function storePrefabricado(Request $request)
+    public function storePrefabricado(StorePrefabricadoRequest $request)
     {
         $prefabricado = new Prefabricado();
         $prefabricado->save();
@@ -65,11 +67,11 @@ class MuebleController extends Controller
 
         $mueble->muebleable()->associate($prefabricado);
 
-        return view('muebles.index');
+        return redirect()->route('muebles.index');
 
     }
 
-    public function storeFabricado(Request $request)
+    public function storeFabricado(StoreFabricadoRequest $request)
     {
         $fabricado = new Fabricado();
         $fabricado->alto = $request->alto;
@@ -85,7 +87,7 @@ class MuebleController extends Controller
 
         $mueble->muebleable()->associate($fabricado);
 
-        return view('muebles.index');
+        return redirect()->route('muebles.index');
 
     }
 

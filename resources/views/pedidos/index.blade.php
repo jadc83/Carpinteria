@@ -1,3 +1,3 @@
 <x-app-layout>
-    Hola
+    Este es el index de pedidos
 </x-app-layout>

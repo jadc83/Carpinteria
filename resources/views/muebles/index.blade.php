@@ -24,5 +24,8 @@
                 </tbody>
             </table>
         </div>
+        <form class="mt-2" action="{{route('muebles.create')}}" method="get">
+            <x-primary-button>Nuevo mueble</x-primary-button>
+        </form>
     </div>
 </x-app-layout>

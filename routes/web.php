@@ -18,7 +18,6 @@ Route::get('muebles/fabricados/create', [MuebleController::class, 'indexFabricad
 Route::get('muebles/prefabricados/create', [MuebleController::class, 'indexPrefabricado'])->name('muebles.createPrefabricado');
 Route::post('muebles/storeFabricado', [MuebleController::class, 'storeFabricado'])->name('muebles.storeFabricado');
 Route::post('muebles/storePrefabricado', [MuebleController::class, 'storePrefabricado'])->name('muebles.storePrefabricado');
-Route::post('muebles/prefabricados/edit');
 Route::resource('muebles', MuebleController::class);
 Route::resource('pedidos', PedidoController::class);
 
