@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-4">
-        <h2 class="text-2xl font-bold mb-4">Lista de Muebles</h2>
+        <h2 class="text-2xl font-bold mb-4">Listado de Muebles</h2>
 
         <div class="overflow-x-auto">
             <table class="w-full border-collapse border border-gray-300">
@@ -18,11 +18,14 @@
                             <td class="border p-2">{{ $mueble->denominacion }}</td>
                             <td class="border p-2">{{ comprobarAlto($mueble) }}</td>
                             <td class="border p-2">{{ comprobarAncho($mueble) }}</td>
-                            <td class="border p-2 font-bold text-blue-600">{{ calcularPrecio($mueble)}}</td>
+                            <td class="border p-2 font-bold text-blue-600">  {{ number_format((float) calcularPrecio($mueble), 2, '.', ',') }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
+        <form class="mt-2" action="{{route('muebles.create')}}" method="get">
+            <x-primary-button>Nuevo mueble</x-primary-button>
+        </form>
     </div>
 </x-app-layout>
