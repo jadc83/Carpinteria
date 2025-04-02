@@ -71,7 +71,7 @@ new class extends Component
             </div>
             @else
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
-                    <p>Invitado</p>
+                    <a href="{{route('login')}}">Log In</a>
                 </div>
             @endif
 
@@ -118,7 +118,7 @@ new class extends Component
         </div>
         @else
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <p>Invitado</p>
+                <a href="{{route('login')}}">Log In</a>
             </div>
         @endif
     </div>

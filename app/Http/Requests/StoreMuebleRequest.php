@@ -11,7 +11,7 @@ class StoreMuebleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,21 @@ class StoreMuebleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+                'denominacion' => 'required|string|max:255',
+                'precio' => 'required|numeric|between:0,999999.99',
+                'alto' => 'required_if:tipo,fabricado|nullable|numeric|between:0,9999.99',
+                'ancho' => 'required_if:tipo,fabricado|nullable|numeric|between:0,9999.99',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+                'denominacion.required' => 'El denominacion es obligatorio.',
+                'denominacion.max' => 'El denominacion no puede tener más de 255 caracteres.',
+                'precio.required' => 'El precio es obligatorio.',
+                'precio.numeric' => 'El precio debe ser un número válido.',
+                'precio.between' => 'El precio debe estar entre 0 y 999999.99.',
         ];
     }
 }

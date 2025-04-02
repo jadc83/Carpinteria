@@ -10,6 +10,8 @@ class Mueble extends Model
     /** @use HasFactory<\Database\Factories\MuebleFactory> */
     use HasFactory;
 
+    protected $fillable = ['denominacion', 'precio'];
+
     public function muebleable()
     {
         return $this->morphTo('muebleable');

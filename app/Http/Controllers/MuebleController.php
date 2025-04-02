@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreFabricadoRequest;
 use App\Http\Requests\StoreMuebleRequest;
-use App\Http\Requests\StorePrefabricadoRequest;
 use App\Http\Requests\UpdateMuebleRequest;
 use App\Models\Fabricado;
 use App\Models\Mueble;
 use App\Models\Prefabricado;
-use Illuminate\Http\Request;
 
 class MuebleController extends Controller
 {
@@ -18,10 +15,7 @@ class MuebleController extends Controller
      */
     public function index()
     {
-        $muebles = Mueble::whereIn('muebleable_type', [
-            'App\Models\Fabricado',
-            'App\Models\Prefabricado'
-        ])->get();
+        $muebles = Mueble::with('muebleable')->get();
 
         return view('muebles.index', ['muebles' => $muebles]);
     }
@@ -50,26 +44,31 @@ class MuebleController extends Controller
      */
     public function store(StoreMuebleRequest $request)
     {
-        //
-    }
 
-    public function storePrefabricado(StorePrefabricadoRequest $request)
-    {
-        $prefabricado = new Prefabricado();
-        $prefabricado->save();
+        if (is_null($request->alto) && is_null($request->ancho)) {
 
-        $mueble = new Mueble();
-        $mueble->denominacion = $request->denominacion;
-        $mueble->precio = $request->precio;
-        $mueble->muebleable_id = $prefabricado->id;
-        $mueble->muebleable_type = Prefabricado::class;
-        $mueble->save();
+            $prefabricado = new Prefabricado();
+            $prefabricado->save();
+            $mueble = new Mueble();
+            $mueble->fill($request->validated());
+            $mueble->muebleable()->associate($prefabricado);
+            $mueble->save();
 
-        $mueble->muebleable()->associate($prefabricado);
+        } else {
+
+            $fabricado = new Fabricado();
+            $fabricado->alto = $request->alto;
+            $fabricado->ancho = $request->ancho;
+            $fabricado->save();
+            $mueble = new Mueble();
+            $mueble->fill($request->validated());
+            $mueble->muebleable()->associate($fabricado);
+            $mueble->save();
+        }
 
         return redirect()->route('muebles.index');
-
     }
+
 
     public function storeFabricado(StoreFabricadoRequest $request)
     {
@@ -96,7 +95,7 @@ class MuebleController extends Controller
      */
     public function show(Mueble $mueble)
     {
-        //
+
     }
 
     /**
