@@ -15,6 +15,6 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 Route::resource('muebles', MuebleController::class);
-Route::resource('pedidos', PedidoController::class);
+Route::resource('pedidos', PedidoController::class)->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

@@ -10,15 +10,24 @@
                         <th class="border p-2">Altura (cm)</th>
                         <th class="border p-2">Anchura (cm)</th>
                         <th class="border p-2">Precio (€)</th>
+                        <th class="border p-2">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($muebles as $mueble)
-                        <tr class="border">
+                        <tr class="border text-center">
                             <td class="border p-2">{{ $mueble->denominacion }}</td>
                             <td class="border p-2">{{ comprobarAlto($mueble) }}</td>
                             <td class="border p-2">{{ comprobarAncho($mueble) }}</td>
-                            <td class="border p-2 font-bold text-blue-600">{{ calcularPrecio($mueble)}}</td>
+                            <td class="border p-2 font-bold">{{ calcularPrecio($mueble)}}</td>
+                            <td class="border p-2 font-bold">
+                                <form action="{{route('muebles.destroy', $mueble)}}" method="post">
+                                    @csrf
+                                    @method("delete")
+                                    <x-primary-button>Borrar</x-primary-button>
+                                </form>
+                            </td>
+
                         </tr>
                     @endforeach
                 </tbody>

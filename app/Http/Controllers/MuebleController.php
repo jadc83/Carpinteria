@@ -70,26 +70,6 @@ class MuebleController extends Controller
     }
 
 
-    public function storeFabricado(StoreFabricadoRequest $request)
-    {
-        $fabricado = new Fabricado();
-        $fabricado->alto = $request->alto;
-        $fabricado->ancho = $request->ancho;
-        $fabricado->save();
-
-        $mueble = new Mueble();
-        $mueble->precio = $request->precio;
-        $mueble->denominacion = $request->denominacion;
-        $mueble->muebleable_id = $fabricado->id;
-        $mueble->muebleable_type = Fabricado::class;
-        $mueble->save();
-
-        $mueble->muebleable()->associate($fabricado);
-
-        return redirect()->route('muebles.index');
-
-    }
-
     /**
      * Display the specified resource.
      */
@@ -119,6 +99,8 @@ class MuebleController extends Controller
      */
     public function destroy(Mueble $mueble)
     {
-        //
+        $mueble->delete();
+
+        return redirect()->route('muebles.index');
     }
 }

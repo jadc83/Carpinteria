@@ -19,7 +19,7 @@ function comprobarAlto($mueble)
 function calcularPrecio($mueble)
 {
     if ($mueble->muebleable_type == 'App\Models\Fabricado')
-        return (( $mueble->muebleable->alto * $mueble->muebleable->ancho ) / 100) * $mueble->precio . "€";
+        return (( $mueble->muebleable->alto * $mueble->muebleable->ancho )) * $mueble->precio . "€";
     else
         return $mueble->precio . "€";
 }

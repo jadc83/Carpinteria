@@ -23,7 +23,7 @@
                                 @if ($pedido->mueble->muebleable_type === 'App\Models\Prefabricado')
                                     <td class="border p-2">{{$pedido->mueble->precio * $pedido->cantidad}}€</td>
                                 @else
-                                    <td class="border p-2">{{$pedido->mueble->muebleable->alto * $pedido->mueble->muebleable->ancho * $pedido->mueble->precio * $pedido->cantidad}}€</td>
+                                    <td class="border p-2">{{ ( $pedido->mueble->muebleable->alto * $pedido->mueble->muebleable->ancho * $pedido->mueble->precio ) * $pedido->cantidad}}€</td>
                                 @endif
                             </tr>
                         @endforeach
