@@ -16,4 +16,9 @@ class Mueble extends Model
     {
         return $this->morphTo('muebleable');
     }
+
+    public function pedidos()
+    {
+        return $this->hasMany(Pedido::class);
+    }
 }

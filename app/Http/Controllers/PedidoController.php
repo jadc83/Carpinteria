@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePedidoRequest;
 use App\Http\Requests\UpdatePedidoRequest;
+use App\Models\Mueble;
 use App\Models\Pedido;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PedidoController extends Controller
 {
@@ -13,7 +16,9 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        //
+        $pedidos = Auth::user()->pedidos;
+        return view('pedidos.index', ['pedidos' => $pedidos]);
+
     }
 
     /**
@@ -21,15 +26,22 @@ class PedidoController extends Controller
      */
     public function create()
     {
-        //
+        $muebles = Mueble::all();
+        return view('pedidos.create', [ 'muebles' => $muebles]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePedidoRequest $request)
+    public function store(Request $request)
     {
-        //
+       $pedido = new Pedido();
+       $pedido->user_id = Auth::id();
+       $pedido->mueble_id = $request->mueble_id;
+       $pedido->cantidad = $request->cantidad;
+       $pedido->save();
+
+       return redirect()->route('pedidos.index');
     }
 
     /**

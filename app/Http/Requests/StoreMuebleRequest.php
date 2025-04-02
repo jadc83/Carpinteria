@@ -37,6 +37,8 @@ class StoreMuebleRequest extends FormRequest
                 'precio.required' => 'El precio es obligatorio.',
                 'precio.numeric' => 'El precio debe ser un número válido.',
                 'precio.between' => 'El precio debe estar entre 0 y 999999.99.',
+                'alto.numeric' => 'El alto debe tener un valor valido',
+                'ancho.numeric' => 'El ancho debe tener un valor valido',
         ];
     }
 }

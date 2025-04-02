@@ -15,4 +15,9 @@ class Pedido extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function mueble()
+    {
+        return $this->belongsTo(Mueble::class);
+    }
+
 }
